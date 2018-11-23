@@ -1,0 +1,23 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="ru.f0xdev.auth">
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" android:maxSdkVersion="22"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" android:maxSdkVersion="22"/>
+
+    <application>
+        <activity android:name="ru.f0xdev.auth.ui.LoginActivity"
+                  android:screenOrientation="portrait"/>
+        <service android:name="ru.f0xdev.auth.AuthService">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator"/>
+            </intent-filter>
+            <meta-data
+                    android:name="android.accounts.AccountAuthenticator"
+                    android:resource="@xml/authenticator"/>
+        </service>
+    </application>
+</manifest>

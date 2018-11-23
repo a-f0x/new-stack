@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+//apply plugin: 'kotlinx-serialization'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "ru.f0xdev.app"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'com.google.android.material:material:1.1.0-alpha01'
+    implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.0.1'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1"
+
+    implementation 'org.koin:koin-android:1.0.2'
+    implementation "org.koin:koin-androidx-viewmodel:1.0.2"
+//    implementation 'org.koin:koin-androidx-scope:1.0.2'
+
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.9.0"
+    implementation "com.github.kittinunf.fuel:fuel-android:$fuel"
+    implementation "com.github.kittinunf.fuel:fuel-coroutines:$fuel"
+
+    implementation project(':core')
+    implementation project(':auth')
+}

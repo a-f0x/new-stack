@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">core</string>
+    <string name="account_type">ru.f0xdev.account</string>
+    <string name="content_authorities">ru.f0xdev.datasync</string>
+    <string name="account_name">f0xdev</string>
+    <string name="token_type">all</string>
+
+    <string name="login_hint">Имя пользователя</string>
+    <string name="password_hint">Пароль</string>
+    <string name="enter">Войти</string>
+
+</resources>
