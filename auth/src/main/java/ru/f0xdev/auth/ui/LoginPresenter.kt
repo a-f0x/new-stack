@@ -1,13 +1,15 @@
 package ru.f0xdev.auth.ui
 
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import ru.f0xdev.auth.AuthException
 import ru.f0xdev.auth.IAuthManager
 import ru.f0xdev.core.ui.BasePresenter
 
 
 class LoginPresenter(private val authManager: IAuthManager) : BasePresenter<LoginView>() {
+    override fun onAttached() {
+
+    }
 
     /**
      *
@@ -17,9 +19,8 @@ class LoginPresenter(private val authManager: IAuthManager) : BasePresenter<Logi
     fun login(login: String, password: String) {
         view?.showProgress(true)
         launchOnUI("") {
-            val job = GlobalScope.async { authManager.login(login, password) }
+            val job = launchBackGround { authManager.login(login, password) }
             try {
-                addJob(job)
                 val token = job.await()
                 view?.finish(token)
             } catch (t: Throwable) {

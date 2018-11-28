@@ -71,8 +71,19 @@ abstract class BasePresenter<View> : ViewModel(), LifecycleObserver {
         }
         addJob(job, taskKey)
         return job
-
     }
+
+    /**
+     *выполнить корутину в другом потоке
+     * */
+    protected fun <T> launchBackGround(taskKey: String? = null, block: suspend () -> T): Deferred<T> {
+        val job = GlobalScope.async {
+            block.invoke()
+        }
+        addJob(job, taskKey)
+        return job
+    }
+
 
     /**
      * Обработка жизненного цикла вью
@@ -85,4 +96,7 @@ abstract class BasePresenter<View> : ViewModel(), LifecycleObserver {
         view = null
         cancelAllJobs()
     }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    abstract fun onAttached()
 }
