@@ -7,9 +7,6 @@ import ru.f0xdev.core.ui.BasePresenter
 
 
 class LoginPresenter(private val authManager: IAuthManager) : BasePresenter<LoginView>() {
-    override fun onAttached() {
-
-    }
 
     /**
      *

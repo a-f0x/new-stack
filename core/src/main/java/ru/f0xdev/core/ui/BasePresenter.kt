@@ -26,6 +26,7 @@ abstract class BasePresenter<View> : ViewModel(), LifecycleObserver {
      * */
     fun attachView(view: View) {
         this.view = view
+        onFirstAttached()
     }
 
     /**
@@ -60,10 +61,7 @@ abstract class BasePresenter<View> : ViewModel(), LifecycleObserver {
     }
 
     /**
-     *Функция добавляет перехватчика ошибок которые возникают когда корутина которую отменили завершает свое выполнение
-     *@param taskKey - ключ по которому  можно будет достать эту джобу если нужно
-     *@param block  - суспенд функция из которой билдится корутина
-     * @return  - вернет эту же джобу
+     *выполнить корутину и вернуть результат в ЮУ
      * */
     protected fun launchOnUI(taskKey: String? = null, block: suspend () -> Unit): Job {
         val job = GlobalScope.launch(Dispatchers.Main + handler) {
@@ -71,11 +69,13 @@ abstract class BasePresenter<View> : ViewModel(), LifecycleObserver {
         }
         addJob(job, taskKey)
         return job
+
     }
 
     /**
      *выполнить корутину в другом потоке
      * */
+
     protected fun <T> launchBackGround(taskKey: String? = null, block: suspend () -> T): Deferred<T> {
         val job = GlobalScope.async {
             block.invoke()
@@ -83,7 +83,6 @@ abstract class BasePresenter<View> : ViewModel(), LifecycleObserver {
         addJob(job, taskKey)
         return job
     }
-
 
     /**
      * Обработка жизненного цикла вью
@@ -98,5 +97,8 @@ abstract class BasePresenter<View> : ViewModel(), LifecycleObserver {
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    abstract fun onAttached()
+    open fun onStarted() {
+    }
+
+    open fun onFirstAttached() {}
 }
